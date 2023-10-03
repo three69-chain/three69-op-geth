@@ -216,6 +216,7 @@ const (
 	RETURN       OpCode = 0xf3
 	DELEGATECALL OpCode = 0xf4
 	CREATE2      OpCode = 0xf5
+	IMGN         OpCode = 0xf9
 
 	STATICCALL   OpCode = 0xfa
 	REVERT       OpCode = 0xfd
@@ -394,6 +395,7 @@ var opCodeToString = map[OpCode]string{
 	REVERT:       "REVERT",
 	INVALID:      "INVALID",
 	SELFDESTRUCT: "SELFDESTRUCT",
+	IMGN:         "IMGN",
 }
 
 func (op OpCode) String() string {
@@ -554,6 +556,7 @@ var stringToOp = map[string]OpCode{
 	"REVERT":         REVERT,
 	"INVALID":        INVALID,
 	"SELFDESTRUCT":   SELFDESTRUCT,
+	"IMGN":           IMGN,
 }
 
 // StringToOp finds the opcode whose name is stored in `str`.

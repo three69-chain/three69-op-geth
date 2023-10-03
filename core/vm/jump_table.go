@@ -1051,6 +1051,12 @@ func newFrontierInstructionSet() JumpTable {
 			minStack:   minStack(1, 0),
 			maxStack:   maxStack(1, 0),
 		},
+		IMGN: {
+			execute:     opIMGN,
+			dynamicGas:  gasIMGN,
+			minStack:    minStack(2, 1),
+			maxStack:    maxStack(2, 1),
+		},
 	}
 
 	// Fill all unassigned slots with opUndefined.

@@ -845,6 +845,27 @@ func opSelfdestruct6780(pc *uint64, interpreter *EVMInterpreter, scope *ScopeCon
 	return nil, errStopToken
 }
 
+func opIMGN(pc *uint64, interpreter *EVMInterpreter, scope *ScopeContext) ([]byte, error) {
+	offset, size := scope.Stack.pop(), scope.Stack.peek()
+	data := scope.Memory.GetPtr(int64(offset.Uint64()), int64(size.Uint64()))
+	inputData := string(data)
+	
+	// TODO: call external AI inference
+	// Dummy AI inference: compute the length of inputData or any other operation
+	dummyResult := len(inputData)
+	
+	// Convert dummyResult to bytes32 and push it onto the stack
+	var resultByte [32]byte
+	for i := 0; i < 8 && dummyResult > 0; i++ {
+		resultByte[31-i] = byte(dummyResult & 0xFF)
+		dummyResult >>= 8
+	}
+	scope.Stack.push(new(uint256.Int).SetBytes(resultByte[:]))
+	scope.Stack.push(new(uint256.Int).SetBytes(resultByte[:]))
+	
+	return nil, nil
+}
+
 // following functions are used by the instruction jump  table
 
 // make log instruction function

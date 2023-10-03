@@ -477,3 +477,26 @@ func gasSelfdestruct(evm *EVM, contract *Contract, stack *Stack, mem *Memory, me
 	}
 	return gas, nil
 }
+
+func gasIMGN(evm *EVM, contract *Contract, stack *Stack, mem *Memory, memorySize uint64) (uint64, error) {
+	// Dynamic gas cost is calculated based on GPU utilization and electricity cost
+	gpuUtilization := getGPUUtilization(evm, contract, stack, mem, memorySize) 
+	electricityCost := getElectricityCost(evm, contract, stack, mem, memorySize) 
+
+	// We might have a base cost per unit of GPU utilization and per unit of electricity cost
+	gasPerGPUUnit := uint64(10) // TODO: Calculate this value
+	gasPerElectricityUnit := uint64(5) // TODO: Calculate this value
+
+	// Calculate dynamic gas cost based on GPU utilization and electricity cost
+	dynamicGas := gpuUtilization * gasPerGPUUnit + electricityCost * gasPerElectricityUnit
+
+	return dynamicGas, nil
+}
+
+func getGPUUtilization(evm *EVM, contract *Contract, stack *Stack, mem *Memory, memorySize uint64) uint64 {
+	return uint64(50) // Percent value between 0 and 100 representing GPU utilization
+}
+
+func getElectricityCost(evm *EVM, contract *Contract, stack *Stack, mem *Memory, memorySize uint64) uint64 {
+	return uint64(10) // Cost of electricity per unit
+}
