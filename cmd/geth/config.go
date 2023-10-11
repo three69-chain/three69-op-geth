@@ -63,6 +63,11 @@ var (
 	}
 )
 
+var aiModelPathFlag = &cli.StringFlag{
+	Name:  "ai-model-path",
+	Usage: "Directory where AI models are stored",
+}
+
 // These settings ensure that TOML keys use the same names as Go struct fields.
 var tomlSettings = toml.Config{
 	NormFieldName: func(rt reflect.Type, key string) string {

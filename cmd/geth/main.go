@@ -154,6 +154,7 @@ var (
 		utils.RollupComputePendingBlock,
 		utils.RollupHaltOnIncompatibleProtocolVersionFlag,
 		configFileFlag,
+		aiModelPathFlag,
 	}, utils.NetworkFlags, utils.DatabasePathFlags)
 
 	rpcFlags = []cli.Flag{
@@ -349,6 +350,9 @@ func geth(ctx *cli.Context) error {
 	prepare(ctx)
 	stack, backend := makeFullNode(ctx)
 	defer stack.Close()
+
+	aiModelPath := ctx.String(aiModelPathFlag.Name)
+	log.Info("Using AI model path", "path", aiModelPath)
 
 	startNode(ctx, stack, backend, false)
 	stack.Wait()
